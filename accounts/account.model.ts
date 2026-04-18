@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 export default function model(sequelize: any) {
   const attributes = {
-    email: { type: DataTypes.STRING, allowNull: false },
+    email:   { type: DataTypes.STRING, allowNull: false },
     passwordHash: { type: DataTypes.STRING, allowNull: false },
     title: { type: DataTypes.STRING, allowNull: false },
     firstName: { type: DataTypes.STRING, allowNull: false },
