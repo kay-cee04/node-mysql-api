@@ -1,4 +1,6 @@
-export default {
-  Admin: 'Admin',
-  User: 'User'
-}
+const Role = {
+    Admin: 'Admin',
+    User: 'User'
+};
+
+export default Role;

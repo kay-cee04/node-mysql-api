@@ -1,7 +1,29 @@
 import nodemailer from 'nodemailer';
-import config from '../config.json';
+import dotenv from 'dotenv';
 
-export default async function sendEmail({ to, subject, html, from = config.emailFrom }: any) {
-  const transporter = nodemailer.createTransport(config.smtpOptions);
-  await transporter.sendMail({ from, to, subject, html });
+dotenv.config();
+
+export default async function sendEmail({ to, subject, html, from }: any) {
+    let transporterConfig;
+    
+    if (process.env.NODE_ENV === 'production') {
+        // Production - use environment variables
+        transporterConfig = {
+            host: process.env.SMTP_HOST,
+            port: parseInt(process.env.SMTP_PORT || '587'),
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
+            }
+        };
+    } else {
+        // Development - use config.json
+        const config = require('../config.json');
+        transporterConfig = config.smtpOptions;
+    }
+    
+    const transporter = nodemailer.createTransport(transporterConfig);
+    const fromEmail = from || process.env.EMAIL_FROM || 'info@node-mysql-api.com';
+    
+    await transporter.sendMail({ from: fromEmail, to, subject, html });
 }

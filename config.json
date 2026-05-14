@@ -6,16 +6,16 @@
     "password": "jepoy070424",
     "database": "node_mysql_api"
   },
-  "secret": "SUPER_SECRET_KEY_REPLACE_ME_IN_PRODUCTION",
-  "emailFrom": "info@my-node-api.com",
-  "smtpOptions": {
-    "host": "smtp.ethereal.email",
-    "port": 587,
-    "auth": {
-        "user": "lorine.mcclure81@ethereal.email",
-        "pass": "yteJZ42mhsk2dzCs4z"
+  "jwtSecret": "your-jwt-secret-key-change-in-production",
+    "emailFrom": "info@node-mysql-api.com",
+    "smtpOptions": {
+        "host": "smtp.ethereal.email",
+        "port": 587,
+        "auth": {
+            "user": "your-ethereal-username@ethereal.email",
+            "pass": "your-ethereal-password"
+        }
     }
-  }
 }
 
 
