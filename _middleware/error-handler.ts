@@ -9,6 +9,7 @@ export default function errorHandler(err: any, req: Request, res: Response, next
         case err.name === 'UnauthorizedError':
             return res.status(401).json({ message: 'Unauthorized' });
         default:
+            console.error(err);
             return res.status(500).json({ message: err.message });
     }
 }

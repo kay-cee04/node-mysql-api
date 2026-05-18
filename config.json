@@ -3,19 +3,17 @@
     "host": "localhost",
     "port": 3306,
     "user": "root",
-    "password": "jepoy070424",
+    "password": "",
     "database": "node_mysql_api"
   },
-  "jwtSecret": "your-jwt-secret-key-change-in-production",
-    "emailFrom": "info@node-mysql-api.com",
-    "smtpOptions": {
-        "host": "smtp.ethereal.email",
-        "port": 587,
-        "auth": {
-            "user": "your-ethereal-username@ethereal.email",
-            "pass": "your-ethereal-password"
-        }
+  "secret": "local_dev_secret_key",
+  "emailFrom": "info@local.com",
+  "smtpOptions": {
+    "host": "smtp.ethereal.email",
+    "port": 587,
+    "auth": {
+      "user": "theodora71@ethereal.email",
+      "pass": "2dDSCf6vQJpFmpgRvj"
     }
+  }
 }
-
-
