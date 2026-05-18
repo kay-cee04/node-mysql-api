@@ -38,7 +38,7 @@ async function initialize() {
                 password = config.database.password;
                 database = config.database.database;
                 console.log(`🟢 Development mode - connecting to ${host}:${port}`);
-            } catch (err) {
+            } catch (err: any) {
                 console.error('config.json not found for local development');
                 throw err;
             }
@@ -86,6 +86,7 @@ async function initialize() {
     }
 }
 
+// Initialize database
 initialize().catch(error => {
     console.error('Failed to initialize database:', error.message);
 });
