@@ -15,9 +15,8 @@ async function initialize() {
     try {
         let host: string, port: number, user: string, password: string, database: string;
         
-        // Check if running in production (Railway)
+        // PRODUCTION (Railway) - use environment variables only
         if (process.env.NODE_ENV === 'production') {
-            // PRODUCTION - use Railway environment variables
             host = process.env.DB_HOST || '';
             port = parseInt(process.env.DB_PORT || '3306');
             user = process.env.DB_USER || '';
@@ -25,21 +24,24 @@ async function initialize() {
             database = process.env.DB_NAME || '';
             
             console.log(`🔵 Production mode - connecting to ${host}:${port}`);
-        } else {
-            // DEVELOPMENT - use local config.json
-            const config = require('../config.json');
-            host = config.database.host;
-            port = config.database.port;
-            user = config.database.user;
-            password = config.database.password;
-            database = config.database.database;
             
-            console.log(`🟢 Development mode - connecting to ${host}:${port}`);
-        }
-
-        // Validate configuration
-        if (!host || !user || !database) {
-            throw new Error('Missing database configuration');
+            if (!host || !user || !database) {
+                throw new Error('Missing database environment variables');
+            }
+        } else {
+            // DEVELOPMENT - only use config.json in development
+            try {
+                const config = require('../config.json');
+                host = config.database.host;
+                port = config.database.port;
+                user = config.database.user;
+                password = config.database.password;
+                database = config.database.database;
+                console.log(`🟢 Development mode - connecting to ${host}:${port}`);
+            } catch (err) {
+                console.error('config.json not found for local development');
+                throw err;
+            }
         }
 
         // Create database if it doesn't exist
