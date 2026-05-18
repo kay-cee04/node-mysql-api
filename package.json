@@ -2,10 +2,10 @@
   "name": "node-mysql-api",
   "version": "1.0.0",
   "description": "Node.js TypeScript MySQL Authentication API",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node server.js",
+    "build": "npx tsc",
+    "start": "node dist/server.js",
     "dev": "nodemon server.ts"
   },
   "dependencies": {
