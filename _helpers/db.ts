@@ -15,18 +15,18 @@ async function initialize() {
     try {
         let host: string, port: number, user: string, password: string, database: string;
         
-        // ONLY check NODE_ENV for production detection (NOT DB_HOST)
+        // Check if running in production (Railway)
         if (process.env.NODE_ENV === 'production') {
-            // PRODUCTION (Railway) - use environment variables
+            // PRODUCTION - use Railway environment variables
             host = process.env.DB_HOST || '';
             port = parseInt(process.env.DB_PORT || '3306');
             user = process.env.DB_USER || '';
             password = process.env.DB_PASSWORD || '';
             database = process.env.DB_NAME || '';
             
-            console.log(`🔵 Connecting to production database at ${host}:${port}`);
+            console.log(`🔵 Production mode - connecting to ${host}:${port}`);
         } else {
-            // DEVELOPMENT (Local) - use config.json
+            // DEVELOPMENT - use local config.json
             const config = require('../config.json');
             host = config.database.host;
             port = config.database.port;
@@ -34,12 +34,11 @@ async function initialize() {
             password = config.database.password;
             database = config.database.database;
             
-            console.log(`🟢 Connecting to development database at ${host}:${port}`);
+            console.log(`🟢 Development mode - connecting to ${host}:${port}`);
         }
 
-        // Validate required variables
+        // Validate configuration
         if (!host || !user || !database) {
-            console.error('Missing configuration:', { host, user, database });
             throw new Error('Missing database configuration');
         }
 
@@ -63,7 +62,7 @@ async function initialize() {
         });
         
         await sequelize.authenticate();
-        console.log('✅ Database connection established successfully.');
+        console.log('✅ Database connection established');
         
         // Initialize models
         db.Account = accountModel(sequelize);
@@ -80,7 +79,7 @@ async function initialize() {
         db.Sequelize = Sequelize;
         
     } catch (error) {
-        console.error('❌ Database initialization error:', error);
+        console.error('❌ Database error:', error);
         throw error;
     }
 }
